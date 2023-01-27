@@ -2,14 +2,14 @@ import Checkbox from 'expo-checkbox'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkBox1, checkBox2, checkBox3 } from '../redux/actions/checkAction'
+import { checkBox1, checkBox2, checkBox3 } from '../redux/checkerSlice'
 
 const SettingsScreen = () => {
 
   const dispatch = useDispatch()
 
-  const isChecked = useSelector((store) => (store.check))
-  
+  const { checker } = useSelector((state) => state)
+
   const handleCheck = (number) => {
     switch (number) {
       case 1: {
@@ -28,15 +28,15 @@ const SettingsScreen = () => {
   return (
     <View>
       <View style={styles.checkboxContainer}>
-        <Checkbox style={styles.checkbox} value={isChecked.checkBox1} onValueChange={() => handleCheck(1)} />
+        <Checkbox style={styles.checkbox} value={checker.box1} onValueChange={() => handleCheck(1)} />
         <Text>SMS</Text>
       </View>
       <View style={styles.checkboxContainer}>
-        <Checkbox style={styles.checkbox} value={isChecked.checkBox2} onValueChange={() => handleCheck(2)}/>
+        <Checkbox style={styles.checkbox} value={checker.box2} onValueChange={() => handleCheck(2)}/>
         <Text>E-mail</Text>
       </View> 
        <View style={styles.checkboxContainer}>
-        <Checkbox style={styles.checkbox} value={isChecked.checkBox3} onValueChange={() => handleCheck(3)}/>
+        <Checkbox style={styles.checkbox} value={checker.box3} onValueChange={() => handleCheck(3)}/>
         <Text>Push</Text>
       </View>
     </View>

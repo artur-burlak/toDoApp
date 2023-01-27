@@ -1,8 +1,9 @@
-import { legacy_createStore, combineReducers } from "redux";
-import checkReducer from "./reducers/checkReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import checkerReducer from "./checkerSlice";
 
-const rootReducer = combineReducers({
-  check: checkReducer
-})
+const store = configureStore({
+  reducer: {
+    checker: checkerReducer
+}})
 
-export const store = legacy_createStore(rootReducer)
+export default store

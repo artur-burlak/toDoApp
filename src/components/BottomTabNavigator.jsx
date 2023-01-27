@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
-import TasksScreen from './TasksScreen'
+import React from 'react'
+import { StyleSheet } from 'react-native'
 import SettingsScreen from './SettingsScreen'
+import TasksScreen from './TasksScreen'
 
 const BottomTabNavigator = () => {
 
