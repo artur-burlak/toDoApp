@@ -4,6 +4,7 @@ ToDo List mobile app on React Native (Expo) with Redux (Toolkit)
 
 ## Visuals
 
+<p>
 <img src='assets/screenshots/screenshot1.jpeg' width='180'> &nbsp <img src='assets/screenshots/screenshot2.jpeg' width='180'> &nbsp <img src='assets/screenshots/screenshot3.jpeg' width='180'> 
 </p>
 
