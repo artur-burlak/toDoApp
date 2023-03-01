@@ -1,11 +1,45 @@
+import { getDatabase, onValue, ref, remove, set } from 'firebase/database'
+import { database } from '../../firebaseConfig'
 import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { Button, FlatList, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native'
 import Task from './Task'
+
+const db = getDatabase()
 
 const TasksScreen = () => {
 
   const [task, setTask] = useState('')
   const [tasksList, setTasksList] = useState([])
+
+  function readTaskData() {
+    onValue(ref(db, '/tasks'), (snapshot) => {
+      const data = snapshot.val();
+      const list = data ? data : []
+      console.log(data)
+      setTasksList(list)
+    })
+  }
+
+  function writeTaskData(data) {
+    set(ref(db), {
+      tasks: data
+    })
+  }
+
+  function removeTaskData(id) {
+    remove(ref(db, `/tasks/${id}`), {
+    })
+  }
+
+  useEffect(() => {
+    readTaskData()
+  }, [])
+
+  // useEffect(() => {
+  //   writeTaskData(tasksList)
+  // }, [tasksList])
+  
 
   const renderTask = ({ item }) => {
     return (
@@ -14,7 +48,7 @@ const TasksScreen = () => {
   }
 
   const removeTask = (key) => {
-    setTasksList((list) => list.filter(item => item.key !== key))  
+    setTasksList((list) => list.filter(item => item.key !== key))
   }
 
   return (
@@ -40,10 +74,12 @@ const TasksScreen = () => {
             />
           <Button
             title='Add'
-            onPress={() => setTasksList(
-              (list) => [{ value: task, key: Math.random().toString() }, ...list],
-              setTask('')
-            )}
+            onPress={() => (
+              setTasksList((list) => [{ value: task, key: Math.random().toString() }, ...list]),
+              setTask(''),
+              writeTaskData(tasksList)
+            )
+            }
           />
         </View>
       </View>
