@@ -2,7 +2,7 @@ import Checkbox from 'expo-checkbox'
 import React, { useState } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
-const Task = ({ value, taskID, removeTask }) => {
+const Task = ({ value, taskID, removeTask, updateTaskData }) => {
   
   const [isChecked, setChecked] = useState(false)
 
@@ -12,7 +12,10 @@ const Task = ({ value, taskID, removeTask }) => {
         <Checkbox
           style={styles.checkbox}
           value={isChecked}
-          onValueChange={() => setChecked(!isChecked)}
+          onValueChange={() => (
+            setChecked(!isChecked),
+            updateTaskData(taskID, !isChecked)
+          )}
           color={isChecked ? 'green' : undefined} />
         <Text style={styles.text}>{value}</Text>
       </View>

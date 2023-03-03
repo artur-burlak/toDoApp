@@ -1,7 +1,5 @@
-import { getDatabase, onValue, ref, remove, set } from 'firebase/database'
-import { database } from '../../firebaseConfig'
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import { getDatabase, onValue, push, ref, remove, update } from 'firebase/database'
+import React, { useEffect, useState } from 'react'
 import { Button, FlatList, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native'
 import Task from './Task'
 
@@ -15,40 +13,46 @@ const TasksScreen = () => {
   function readTaskData() {
     onValue(ref(db, '/tasks'), (snapshot) => {
       const data = snapshot.val();
-      const list = data ? data : []
-      console.log(data)
+      const list = []
+      for (let key in data ? data : []) {
+        list.push({ key, ...data[key] })
+      }
       setTasksList(list)
     })
   }
 
-  function writeTaskData(data) {
-    set(ref(db), {
-      tasks: data
+  function writeTaskData() {
+    push(ref(db, '/tasks'), {
+      value: task,
+      completed: false
     })
   }
 
-  function removeTaskData(id) {
-    remove(ref(db, `/tasks/${id}`), {
+  function updateTaskData(key, completed) {
+    update(ref(db, `/tasks/${key}`), {
+      completed: completed
     })
+  }
+
+  function removeTaskData(key) {
+    remove(ref(db, `/tasks/${key}`))
   }
 
   useEffect(() => {
     readTaskData()
   }, [])
-
-  // useEffect(() => {
-  //   writeTaskData(tasksList)
-  // }, [tasksList])
   
 
   const renderTask = ({ item }) => {
     return (
-      <Task value={item.value} taskID={item.key} removeTask={removeTask} />
+      <Task
+        value={item.value}
+        taskID={item.key}
+        removeTask={removeTaskData}
+        completed={item.completed}
+        updateTaskData={updateTaskData} 
+        />
     )
-  }
-
-  const removeTask = (key) => {
-    setTasksList((list) => list.filter(item => item.key !== key))
   }
 
   return (
@@ -62,7 +66,7 @@ const TasksScreen = () => {
           <FlatList
             data={tasksList}
             renderItem={renderTask}
-            keyExtractor={(item, index) => item.key}
+            keyExtractor={(item) => item.key}
           />
         </View>
         <View style={styles.viewInput}>
@@ -75,7 +79,6 @@ const TasksScreen = () => {
           <Button
             title='Add'
             onPress={() => (
-              setTasksList((list) => [{ value: task, key: Math.random().toString() }, ...list]),
               setTask(''),
               writeTaskData(tasksList)
             )
