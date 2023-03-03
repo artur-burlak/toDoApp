@@ -1,6 +1,6 @@
 # toDoApp
 
-ToDo List mobile app on React Native (Expo) with Redux (Toolkit)
+ToDo List mobile app on React Native (Expo) with Redux (Toolkit) and Firebase Realtime Database.
 
 ## Visuals
 
@@ -15,6 +15,7 @@ Simple ToDo List app with below feautures:
 - Create Task, Delete Task, Mark as "Done"
 - Imitation of "Settings" sreen with notification options using Redux
 - Bottom-Tab navigation between screens
+- All tasks are stored in Realtime Firebase Database
 
 ## Run it locally
 
