@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './firebaseConfig.js';
 import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { firebaseConfig } from './firebaseConfig.js';
 import BottomTabNavigator from './src/components/BottomTabNavigator';
 import store from './src/redux/store';
 
