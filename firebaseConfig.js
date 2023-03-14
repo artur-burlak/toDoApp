@@ -11,6 +11,7 @@ export const firebaseConfig = {
   databaseURL: "https://todofirebase-d3584-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
-const app = initializeApp(firebaseConfig)
+export const app = initializeApp(firebaseConfig)
 
 export const database = getDatabase(app)
+

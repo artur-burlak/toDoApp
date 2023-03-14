@@ -3,7 +3,7 @@ import checkerReducer from "./checkerSlice";
 
 const store = configureStore({
   reducer: {
-    checker: checkerReducer
+    checker: checkerReducer,
 }})
 
 export default store

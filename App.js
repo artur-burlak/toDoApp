@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { firebaseConfig } from './firebaseConfig.js';
 import BottomTabNavigator from './src/components/BottomTabNavigator';
 import store from './src/redux/store';
-
+ 
 initializeApp(firebaseConfig)
 
 export default function App() {
